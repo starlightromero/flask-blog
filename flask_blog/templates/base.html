@@ -17,8 +17,12 @@
     <nav>
       <a href="{{ url_for('home') }}">Home</a>
       <a href="{{ url_for('about') }}">About</a>
+      {% if current_user.is_authenticated %}
+      <a href="{{ url_for('logout') }}">Logout</a>
+      {% else %}
       <a href="{{ url_for('login') }}">Login</a>
       <a href="{{ url_for('register') }}">Register</a>
+      {% endif %}
     </nav>
   </head>
   {% with messages = get_flashed_messages() %}
