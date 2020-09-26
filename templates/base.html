@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/main.css') }}">
+
+  {% if title %}
+  <title>Flask Blog - {{ title }}</title>
+  {% else %}
+  <title>Flask Blog</title>
+  {% endif %}
+</head>
+
+<body>
+  <head>
+    <nav>
+      <a href="/">Home</a>
+      <a href="/about">About</a>
+      <a href="/login">Login</a>
+      <a href="/register">Register</a>
+    </nav>
+  </head>
+  {% block content %}{% endblock %}
+</body>
+
+</html>
