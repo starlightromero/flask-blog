@@ -7,7 +7,7 @@
     <legend>Join Today</legend>
     <div>
       {{ form.username.label }}
-      {% if form.username.error %}
+      {% if form.username.errors %}
         {{ form.username(class="is-invalid") }}
         <div class="invalid-feedback">
           {% for error in form.username.errors %}
@@ -20,7 +20,7 @@
     </div>
     <div>
       {{ form.email.label }}
-      {% if form.email.error %}
+      {% if form.email.errors %}
         {{ form.email(class="is-invalid") }}
         <div class="invalid-feedback">
           {% for error in form.email.errors %}
@@ -33,7 +33,7 @@
     </div>
     <div>
       {{ form.password.label }}
-      {% if form.password.error %}
+      {% if form.password.errors %}
         {{ form.password(class="is-invalid") }}
         <div class="invalid-feedback">
           {% for error in form.password.errors %}
@@ -46,7 +46,7 @@
     </div>
     <div>
       {{ form.confirm_password.label }}
-      {% if form.confirm_password.error %}
+      {% if form.confirm_password.errors %}
         {{ form.confirm_password(class="is-invalid") }}
         <div class="invalid-feedback">
           {% for error in form.confirm_password.errors %}
