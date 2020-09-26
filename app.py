@@ -20,8 +20,8 @@ posts = [
 ]
 
 
-@app.route("/")
 @app.route("/home")
+@app.route("/")
 def home():
     """Show home template."""
     return render_template("home.html", posts=posts)
@@ -43,10 +43,18 @@ def register():
     return render_template("register.html", title="Register", form=form)
 
 
-@app.route("/login")
+@app.route("/login", methods=["GET", "POST"])
 def login():
     """Show login template."""
     form = LoginForm()
+    if form.validate_on_submit():
+        if (
+            form.email.data == "starlightromero@gmail.com"
+            and form.password.data == "password"
+        ):
+            flash("You have been logged in!")
+            return redirect(url_for("home"))
+        flash("Login Unsuccessful. Please verify email and password.")
     return render_template("login.html", title="Login", form=form)
 
 
