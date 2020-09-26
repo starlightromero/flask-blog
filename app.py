@@ -1,4 +1,5 @@
-from flask import Flask, render_template
+"""Import flask and forms."""
+from flask import Flask, render_template, flash, redirect, url_for
 from forms import RegistrationForm, LoginForm
 
 app = Flask(__name__)
@@ -22,22 +23,29 @@ posts = [
 @app.route("/")
 @app.route("/home")
 def home():
+    """Show home template."""
     return render_template("home.html", posts=posts)
 
 
 @app.route("/about")
 def about():
+    """Show about template."""
     return render_template("about.html", title="About")
 
 
 @app.route("/register", methods=["GET", "POST"])
 def register():
+    """Show register template."""
     form = RegistrationForm()
+    if form.validate_on_submit():
+        flash(f"Account created for {form.username.data}!")
+        return redirect(url_for("home"))
     return render_template("register.html", title="Register", form=form)
 
 
 @app.route("/login")
 def login():
+    """Show login template."""
     form = LoginForm()
     return render_template("login.html", title="Login", form=form)
 
