@@ -25,8 +25,7 @@ class RegistrationForm(FlaskForm):
     )
     submit = SubmitField("Sign Up")
 
-    @staticmethod
-    def validate_username(username):
+    def validate_username(self, username):
         """Validate username is not taken."""
         user = User.query.filter_by(username=username.data).first()
         if user:
@@ -34,8 +33,7 @@ class RegistrationForm(FlaskForm):
                 "That username is taken. Please choose a different username."
             )
 
-    @staticmethod
-    def validate_email(email):
+    def validate_email(self, email):
         """Validate email is not in use."""
         user = User.query.filter_by(email=email.data).first()
         if user:
