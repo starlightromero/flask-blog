@@ -7,19 +7,55 @@
     <legend>Join Today</legend>
     <div>
       {{ form.username.label }}
-      {{ form.username }}
+      {% if form.username.error %}
+        {{ form.username(class="is-invalid") }}
+        <div class="invalid-feedback">
+          {% for error in form.username.errors %}
+            {{ error }}
+          {% endfor %}
+        </div>
+      {% else %}
+        {{ form.username }}
+      {% endif %}
     </div>
     <div>
       {{ form.email.label }}
-      {{ form.email }}
+      {% if form.email.error %}
+        {{ form.email(class="is-invalid") }}
+        <div class="invalid-feedback">
+          {% for error in form.email.errors %}
+            {{ error }}
+          {% endfor %}
+        </div>
+      {% else %}
+        {{ form.email }}
+      {% endif %}
     </div>
     <div>
       {{ form.password.label }}
-      {{ form.password }}
+      {% if form.password.error %}
+        {{ form.password(class="is-invalid") }}
+        <div class="invalid-feedback">
+          {% for error in form.password.errors %}
+            {{ error }}
+          {% endfor %}
+        </div>
+      {% else %}
+        {{ form.password }}
+      {% endif %}
     </div>
     <div>
       {{ form.confirm_password.label }}
-      {{ form.confirm_password }}
+      {% if form.confirm_password.error %}
+        {{ form.confirm_password(class="is-invalid") }}
+        <div class="invalid-feedback">
+          {% for error in form.confirm_password.errors %}
+            {{ error }}
+          {% endfor %}
+        </div>
+      {% else %}
+        {{ form.confirm_password }}
+      {% endif %}
     </div>
   </fieldset>
   <div>
