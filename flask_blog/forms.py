@@ -1,7 +1,13 @@
 from flask_login import current_user
 from flask_wtf import FlaskForm
 from flask_wtf.file import FileField, FileAllowed
-from wtforms import StringField, PasswordField, SubmitField, BooleanField
+from wtforms import (
+    StringField,
+    PasswordField,
+    SubmitField,
+    BooleanField,
+    TextAreaField,
+)
 from wtforms.validators import (
     DataRequired,
     Length,
@@ -77,7 +83,9 @@ class UpdateAccountForm(FlaskForm):
             user = User.query.filter_by(username=username.data).first()
             if user:
                 raise ValidationError(
-                    "That username is taken. Please choose a different username."
+                    """That username is taken.
+                    Please choose a different username.
+                    """
                 )
 
     def validate_email(self, email):
