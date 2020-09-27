@@ -100,3 +100,11 @@ class UpdateAccountForm(FlaskForm):
                     page and click \"Forgot Password\".
                     """
                 )
+
+
+class PostForm(FlaskForm):
+    """New Post Form."""
+
+    title = StringField("Title", validators=[DataRequired()])
+    content = TextAreaField("Content", validators=[DataRequired()])
+    submit = SubmitField("Post")
