@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<form method="POST">
+  {{ form.hidden_tag() }}
+  <fieldset>
+    <legend>New Post</legend>
+    <div>
+      {{ form.title.label }}
+      {% if form.title.errors %}
+        {{ form.title(class="is-invalid") }}
+        <div class="invalid-feedback">
+          {% for error in form.title.errors %}
+            {{ error }}
+          {% endfor %}
+        </div>
+      {% else %}
+        {{ form.title }}
+      {% endif %}
+    </div>
+    <div>
+      {{ form.content.label }}
+      {% if form.content.errors %}
+        {{ form.content(class="is-invalid") }}
+        <div class="invalid-feedback">
+          {% for error in form.content.errors %}
+            {{ error }}
+          {% endfor %}
+        </div>
+      {% else %}
+        {{ form.content }}
+      {% endif %}
+    </div>
+  </fieldset>
+  <div>
+    {{ form.submit }}
+  </div>
+</form>
+
+{% endblock %}
