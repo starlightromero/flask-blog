@@ -4,7 +4,7 @@
 <form method="POST">
   {{ form.hidden_tag() }}
   <fieldset>
-    <legend>New Post</legend>
+    <legend>{{ title }}</legend>
     <div>
       {{ form.title.label }}
       {% if form.title.errors %}
