@@ -5,10 +5,12 @@ from flask import render_template, flash, redirect, url_for, request
 from flask_login import login_user, current_user, logout_user, login_required
 from flask_blog import app, db, bcrypt
 from flask_blog.models import User, Post
-from flask_blog.forms import RegistrationForm, LoginForm, UpdateAccountForm
-
-
-posts = []
+from flask_blog.forms import (
+    RegistrationForm,
+    LoginForm,
+    UpdateAccountForm,
+    PostForm,
+)
 
 
 def save_picture(form_picture):
@@ -29,6 +31,7 @@ def save_picture(form_picture):
 @app.route("/")
 def home():
     """Show home page."""
+    posts = Post.query.all()
     return render_template("home.html", posts=posts)
 
 
@@ -107,3 +110,27 @@ def account():
         form.username.data = current_user.username
         form.email.data = current_user.email
     return render_template("account.html", title="Account", form=form)
+
+
+@app.route("/post/new", methods=["GET", "POST"])
+@login_required
+def new_post():
+    """Show new post page."""
+    form = PostForm()
+    if form.validate_on_submit():
+        post = Post(
+            title=form.title.data,
+            content=form.content.data,
+            author=current_user,
+        )
+        db.session.add(post)
+        db.session.commit()
+        flash("Your post has been created!")
+        return redirect(url_for("home"))
+    return render_template("create_post.html", title="New Post", form=form)
+
+
+@app.route("/post/<int:post_id>", methods=["GET", "POST"])
+def post(post_id):
+    post = Post.query.get_or_404(post_id)
+    return render_template("post.html", title=post.title, post=post)
