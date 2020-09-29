@@ -1,10 +1,10 @@
-{% extends 'base.html' %}
+{% extends "base.html" %}
 {% block content %}
 
 <form method="POST">
   {{ form.hidden_tag() }}
   <fieldset>
-    <legend>Login</legend>
+    <legend>{{ title }}</legend>
     <div>
       {{ form.email.label }}
       {% if form.email.errors %}
@@ -38,12 +38,12 @@
   </fieldset>
   <div>
     {{ form.submit }}
+    <small><a href="{{ url_for('users.reset_request') }}">Forgot Password?</a></small>
   </div>
-  <small><a href="#">Forgot Password?</a></small>
 </form>
 <div>
   <small>
-    Need an account? <a href="{{ url_for('register') }}">Sign Up Now</a>
+    Need an account? <a href="{{ url_for('users.register') }}">Sign Up Now</a>
   </small>
 </div>
 

@@ -1,3 +1,4 @@
+"""Import login, wtforms, and models."""
 from flask_login import current_user
 from flask_wtf import FlaskForm
 from flask_wtf.file import FileField, FileAllowed
@@ -6,7 +7,6 @@ from wtforms import (
     PasswordField,
     SubmitField,
     BooleanField,
-    TextAreaField,
 )
 from wtforms.validators import (
     DataRequired,
@@ -19,7 +19,7 @@ from flask_blog.models import User
 
 
 class RegistrationForm(FlaskForm):
-    """User Resistration Form."""
+    """User resistration form."""
 
     username = StringField(
         "Username", validators=[DataRequired(), Length(min=2, max=20)]
@@ -55,7 +55,7 @@ class RegistrationForm(FlaskForm):
 
 
 class LoginForm(FlaskForm):
-    """User Login Form."""
+    """User login form."""
 
     email = StringField("Email", validators=[DataRequired(), Email()])
     password = PasswordField(
@@ -66,7 +66,7 @@ class LoginForm(FlaskForm):
 
 
 class UpdateAccountForm(FlaskForm):
-    """Update User Account Form."""
+    """Update user account form."""
 
     username = StringField(
         "Username", validators=[DataRequired(), Length(min=2, max=20)]
@@ -102,9 +102,31 @@ class UpdateAccountForm(FlaskForm):
                 )
 
 
-class PostForm(FlaskForm):
-    """New Post Form."""
+class RequestResetForm(FlaskForm):
+    """Request password reset form."""
 
-    title = StringField("Title", validators=[DataRequired()])
-    content = TextAreaField("Content", validators=[DataRequired()])
-    submit = SubmitField("Post")
+    email = StringField("Email", validators=[DataRequired(), Email()])
+    submit = SubmitField("Request Password Reset")
+
+    def validate_email(self, email):
+        """Validate email is associated with a user."""
+        user = User.query.filter_by(email=email.data).first()
+        if user is None:
+            raise ValidationError(
+                """
+                There is no account associated with that email.
+                Please sign up for an account.
+                """
+            )
+
+
+class ResetPasswordForm(FlaskForm):
+    """Reset password form."""
+
+    password = PasswordField(
+        "Password", validators=[DataRequired(), Length(min=8, max=20)]
+    )
+    confirm_password = PasswordField(
+        "Confirm Password", validators=[DataRequired(), EqualTo("password")]
+    )
+    submit = SubmitField("Reset Password")
