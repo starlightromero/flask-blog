@@ -25,7 +25,6 @@ def save_picture(form_picture):
 def send_reset_email(user):
     """Send password reset email to given user."""
     token = user.get_reset_token()
-    print(user.email)
     msg = Message(
         "Password Reset Reuqest",
         recipients=[user.email],
@@ -36,5 +35,4 @@ To reset your password, visit the following link:
 
 If you did not make this request, please ignore this email.
 """
-    print(msg)
     mail.send(msg)
