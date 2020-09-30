@@ -13,8 +13,8 @@ class Config:
     SECRET_KEY = os.getenv("SECRET_KEY")
     SQLALCHEMY_DATABASE_URI = os.getenv("SQLALCHEMY_DATABASE_URI")
     SQLALCHEMY_TRACK_MODIFICATIONS = True
-    MAIL_SERVER = "smtp.mail.com"
-    MAIL_PORT = 587
+    MAIL_SERVER = os.getenv("MAIL_SERVER")
+    MAIL_PORT = os.getenv("MAIL_PORT")
     MAIL_USE_TTL = True
     MAIL_USE_SSL = False
     MAIL_DEBUG = True
